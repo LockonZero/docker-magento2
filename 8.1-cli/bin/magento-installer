@@ -1,3 +1,4 @@
+#!/bin/bash
 
 [ "$DEBUG" = "true" ] && set -x
 
@@ -48,7 +49,12 @@ if [ ! "$M2SETUP_INSTALL_DB" = "false" ]; then
         --admin-lastname=$M2SETUP_ADMIN_LASTNAME \
         --admin-email=$M2SETUP_ADMIN_EMAIL \
         --admin-user=$M2SETUP_ADMIN_USER \
-        --admin-password=$M2SETUP_ADMIN_PASSWORD"
+        --admin-password=$M2SETUP_ADMIN_PASSWORD \
+        --search-engine=$M2SETUP_SEARCH_ENGINE \
+        --elasticsearch-host=$M2SETUP_ELASTICSEARCH_HOST \
+        --elasticsearch-port=$M2SETUP_ELASTICSEARCH_PORT \
+        --elasticsearch-username=$M2SETUP_ELASTICSEARCH_USERNAME \
+        --elasticsearch-password=$M2SETUP_ELASTICSEARCH_PASSWORD"
 
     # Use a separate value for secure base URL, if the variable is set
     if [ -n "$M2SETUP_SECURE_BASE_URL" ]; then
@@ -69,8 +75,9 @@ if [ ! "$M2SETUP_INSTALL_DB" = "false" ]; then
     fi
 
     $INSTALL_COMMAND
+    $MAGENTO_COMMAND module:disable Magento_TwoFactorAuth
     $MAGENTO_COMMAND index:reindex
-    $MAGENTO_COMMAND setup:static-content:deploy
+    $MAGENTO_COMMAND setup:static-content:deploy -f
 
 else
     echo "Skipping DB installation"

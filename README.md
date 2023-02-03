@@ -88,9 +88,9 @@ If you need to add your own VCL, then it needs to be mounted to: `/data/varnish.
 
 A lot of the configuration for each image is the same, with the difference being the base image that they're extending from.  For this reason we use `php` to build the `Dockerfile` from a set of templates in `src/`.  The `Dockerfile` should still be published to the repository due to Docker Hub needing a `Dockerfile` to build from.
 
-To build all `Dockerfile`s, run the `builder.php` script in the `php:7` Docker image:<!-- Yo dawg, I heard you like Docker images... -->
+To build all `Dockerfile`s, run the `builder.php` script in the `php:8` Docker image:<!-- Yo dawg, I heard you like Docker images... -->
 
-    docker run --rm -it -v $(pwd):/src php:7 php /src/builder.php
+    docker run --rm -it -v $(pwd):/src php:8 php /src/builder.php
 
 ### Adding new images to the build config
 
