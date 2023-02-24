@@ -13,6 +13,7 @@ services:
 
   web:
     image: magento2-nginx:1.9
+    build: ./nginx
     ports:
       - 80:80
     links:
@@ -31,6 +32,7 @@ services:
   fpm:
     hostname: fpm.magento2.docker
     image: magento2-php:8.1-fpm
+    build: ./8.1-fpm
     ports:
       - 9000
     links:
@@ -69,6 +71,7 @@ services:
   cli:
     hostname: cli.magento2.docker
     image: magento2-php:8.1-cli
+    build: ./8.1-cli
     links:
       - db
       - es
